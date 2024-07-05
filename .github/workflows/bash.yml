@@ -1,0 +1,28 @@
+name: Running Bash 
+
+on:
+  workflow_dispatch:
+    inputs:
+      BOT_TOKEN:
+        required: true
+      AI_GOOGLE_API:
+        required: true
+      OWNER_ID:
+        required: true
+
+jobs:
+  bash_cmd:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Runnin Code
+      run: |
+          touch ai.env 
+          echo "AI_GOOGLE_API=${{ github.event.inputs.AI_GOOGLE_API }}" >> ai.env
+          echo "BOT_TOKEN=${{ github.event.inputs.BOT_TOKEN  }}" >> ai.env
+          echo "OWNER_ID=${{ github.event.inputs.OWNER_ID }}" >> ai.env
+          pip3 install -r requirements.txt 
+          python3 -m main.py ai.env
