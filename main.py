@@ -26,17 +26,9 @@ msg: {}
 
 
 def get_text(message):
-    reply_text = (
-        message.reply_to_message.text or message.reply_to_message.caption
-        if message.reply_to_message
-        else ""
-    )
+    reply_text = message.reply_to_message.text or message.reply_to_message.caption if message.reply_to_message else ""
     user_text = message.text
-    return (
-        f"{user_text}\n\n{reply_text}"
-        if reply_text and user_text
-        else reply_text + user_text
-    )
+    return f"{user_text}\n\n{reply_text}" if reply_text and user_text else reply_text + user_text
 
 
 def google_ai(question):
@@ -99,9 +91,7 @@ def google(message):
     if message.text.startswith("/start"):
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(
-            telebot.types.InlineKeyboardButton(
-                "Repository", url="https://github.com/V1HyperBot/chatbot"
-            ),
+            telebot.types.InlineKeyboardButton("Repository", url="https://github.com/V1HyperBot/chatbot"),
             telebot.types.InlineKeyboardButton("Credit", url="https://t.me/NorSodikin"),
         )
         bot.send_message(
